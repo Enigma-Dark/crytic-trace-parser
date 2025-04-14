@@ -1,6 +1,6 @@
 ## Echidna/Medusa Trace Parser
 
-**Echidna/Medusa Trace Parser** is a Python script designed to parse Echidna and Medusa traces and generate corresponding Solidity test functions. This tool simplifies the process of converting fuzzer output into usable Solidity tests, making it easier to verify smart contracts.
+**Echidna/Medusa Trace Parser** is a Python script designed to parse Echidna and Medusa traces and generate corresponding Solidity test functions. This tool simplifies the process of converting fuzzer output into usable Solidity tests, making it easier to replay call sequences.
 
 ## Features
 
