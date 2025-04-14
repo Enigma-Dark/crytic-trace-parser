@@ -1,7 +1,3 @@
-# echidna-trace-parser
-
-A parser that converts echidna and medusa call traces into foundry PoC tests
-
 ## Echidna/Medusa Trace Parser
 
 **Echidna/Medusa Trace Parser** is a Python script designed to parse Echidna and Medusa traces and generate corresponding Solidity test functions. This tool simplifies the process of converting fuzzer output into usable Solidity tests, making it easier to verify smart contracts.
@@ -22,8 +18,8 @@ A parser that converts echidna and medusa call traces into foundry PoC tests
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/echidna-trace-parser.git
-   cd echidna-trace-parser
+   git clone https://github.com/Enigma-Dark/crytic-trace-parser.git
+   cd crytic-trace-parser
    ```
 2. **Download the Script**: Alternatively, download the script file directly and save it in a directory of your choice.
 
@@ -50,7 +46,7 @@ If you're using macOS or Linux, you can make the script executable:
   ```
 - Run the following command to make the script executable:
   ```bash
-  chmod +x echidna_parser.py
+  chmod +x crytic_parser.py
   ```
 
 ### 2. Add the Script to Your PATH
@@ -84,11 +80,11 @@ To run the script from anywhere, you can add its directory to your system's PATH
 1. Open your terminal.
 2. Run the script from anywhere:
    ```bash
-   echidna_parser.py
+   crytic_parser.py
    ```
    or if you haven't made it executable:
    ```bash
-   python3 echidna_parser.py
+   python3 crytic_parser.py
    ```
 
 3. **Input your fuzzer call trace**:
