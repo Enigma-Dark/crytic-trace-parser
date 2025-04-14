@@ -1,16 +1,17 @@
 # echidna-trace-parser
 
-A parser that converts echidna call traces into foundry PoC tests
+A parser that converts echidna and medusa call traces into foundry PoC tests
 
-## Echidna Trace Parser
+## Echidna/Medusa Trace Parser
 
-**Echidna Trace Parser** is a Python script designed to parse Echidna traces and generate corresponding Solidity test functions. This tool simplifies the process of converting Echidna output into usable Solidity tests, making it easier to verify smart contracts.
+**Echidna/Medusa Trace Parser** is a Python script designed to parse Echidna and Medusa traces and generate corresponding Solidity test functions. This tool simplifies the process of converting fuzzer output into usable Solidity tests, making it easier to verify smart contracts.
 
 ## Features
 
-- **Parse Echidna Call Traces**: Extracts function calls, parameters, delays, and 'from' addresses from Echidna traces.
+- **Parse Fuzzer Call Traces**: Extracts function calls, parameters, delays, and 'from' addresses from Echidna and Medusa traces.
 - **Generate Solidity Test Functions**: Automatically creates Solidity test functions based on the parsed data.
-- **User-Friendly Input**: Allows users to paste Echidna traces directly into the terminal.
+- **User-Friendly Input**: Allows users to paste traces directly into the terminal.
+- **Format Detection**: Automatically detects whether the input is an Echidna or Medusa trace.
 
 ## Prerequisites
 
@@ -32,11 +33,11 @@ A parser that converts echidna call traces into foundry PoC tests
    python3 --version
    ```
 
-   If it’s not installed, download and install it from [python.org](https://www.python.org).
+   If it's not installed, download and install it from [python.org](https://www.python.org).
 
 ## Running the Script from Anywhere
 
-To run the Echidna Trace Parser from any directory in your terminal, follow these steps:
+To run the Trace Parser from any directory in your terminal, follow these steps:
 
 ### 1. Make the Script Executable
 
@@ -85,23 +86,27 @@ To run the script from anywhere, you can add its directory to your system's PATH
    ```bash
    echidna_parser.py
    ```
-   or if you haven’t made it executable:
+   or if you haven't made it executable:
    ```bash
    python3 echidna_parser.py
    ```
 
-3. **Input your Echidna call trace**:
-   - Paste your Echidna call trace directly into the terminal.
+3. **Input your fuzzer call trace**:
+   - Paste your Echidna or Medusa call trace directly into the terminal.
    - Press Enter twice to finish input.
 
 4. **View the Generated Solidity Test Function**: The tool will output the generated Solidity test function to the terminal.
 
 ## Example
 
+### Echidna Format Example
+
 ```plaintext
-Paste your Echidna call trace below. Press Enter twice to finish:
+Paste your Echidna or Medusa call trace below. Press Enter twice to finish:
 Tester.function_name(param1, param2) from: 0x12345 Time delay: 5
 *wait* Time delay: 3
+
+Detected Echidna trace format
 
 Generated Foundry Test Function:
 
@@ -110,6 +115,27 @@ function test_replay() public {
     _delay(5);
     Tester.function_name(param1, param2);
     _delay(3);
+}
+```
+
+### Medusa Format Example
+
+```plaintext
+Paste your Echidna or Medusa call trace below. Press Enter twice to finish:
+1) Tester.deposit(uint256,uint8,uint8)(1239852167739453881995240, 0, 0) (block=2, time=2, gas=1250000000, gasprice=1, value=0, sender=0x10000)
+2) Tester.donateUnderlying(uint256,uint8,uint8)(45369402357901978417531215225742791157530708442686125403256020909207651452, 0, 11) (block=2138, time=175249, gas=1250000000, gasprice=1, value=0, sender=0x30000)
+
+Detected Medusa trace format
+
+Generated Foundry Test Function:
+
+function test_replay() public {
+    _setUpActor(0x10000);
+    _delay(2);
+    Tester.deposit(1239852167739453881995240, 0, 0);
+    _setUpActor(0x30000);
+    _delay(175247);
+    Tester.donateUnderlying(45369402357901978417531215225742791157530708442686125403256020909207651452, 0, 11);
 }
 ```
 
